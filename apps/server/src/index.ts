@@ -59,7 +59,17 @@ app.use('/api', apiRouter);
 app.use('/h', webhookRouter);
 
 // Redirect root to frontend
-app.get('/', (_req, res) => {
+app.get('/', (req, res) => {
+  try {
+    const host = req.headers.host || '';
+    const frontendUrlParsed = new URL(FRONTEND_URL);
+    if (host.toLowerCase() === frontendUrlParsed.host.toLowerCase()) {
+      res.status(200).send('HookDropp Backend API is running. If you meant to view the frontend, please ensure your custom domain (hookdropp.vercel.app) is mapped to your frontend Next.js "web" project on Vercel, not the backend "hookdrop" project.');
+      return;
+    }
+  } catch (e) {
+    console.error('Error parsing FRONTEND_URL:', e);
+  }
   res.redirect(FRONTEND_URL);
 });
 
