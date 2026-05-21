@@ -156,9 +156,27 @@ export async function deleteRequestApi(slug: string, requestId: string): Promise
 let ws: WebSocket | null = null;
 let reconnectAttempts = 0;
 let reconnectTimer: NodeJS.Timeout | null = null;
+let connectionId = 0;
+let shouldReconnect = false;
+
+function getWebSocketUrl(slug: string) {
+  const configuredWsUrl = process.env.NEXT_PUBLIC_WS_URL;
+  if (configuredWsUrl) {
+    return `${configuredWsUrl.replace(/\/$/, '')}/ws/${slug}`;
+  }
+
+  const apiUrl = new URL(API_URL);
+  apiUrl.protocol = apiUrl.protocol === 'https:' ? 'wss:' : 'ws:';
+  apiUrl.pathname = `/ws/${slug}`;
+  apiUrl.search = '';
+  apiUrl.hash = '';
+  return apiUrl.toString();
+}
 
 export function connectWebSocket(slug: string) {
-  const wsUrl = (process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:3001') + `/ws/${slug}`;
+  const wsUrl = getWebSocketUrl(slug);
+  const activeConnectionId = ++connectionId;
+  shouldReconnect = true;
   
   if (ws) {
     ws.close();
@@ -168,15 +186,20 @@ export function connectWebSocket(slug: string) {
   reconnectAttempts = 0;
 
   function connect() {
+    if (!shouldReconnect || activeConnectionId !== connectionId) return;
+
     ws = new WebSocket(wsUrl);
 
     ws.onopen = () => {
+      if (activeConnectionId !== connectionId) return;
       console.log('🔌 WebSocket connected');
       useStore.getState().setConnectionStatus('connected');
       reconnectAttempts = 0;
     };
 
     ws.onmessage = (event) => {
+      if (activeConnectionId !== connectionId) return;
+
       try {
         const data = JSON.parse(event.data);
         
@@ -185,7 +208,7 @@ export function connectWebSocket(slug: string) {
             useStore.getState().addRequest(data.data);
             // Notify if tab is not focused
             if (document.hidden && Notification.permission === 'granted') {
-              new Notification('HookDrop', {
+              new Notification('HookDropp', {
                 body: `New ${data.data.method} request received`,
                 icon: '/favicon.ico',
               });
@@ -211,6 +234,8 @@ export function connectWebSocket(slug: string) {
     };
 
     ws.onclose = () => {
+      if (!shouldReconnect || activeConnectionId !== connectionId) return;
+
       useStore.getState().setConnectionStatus('disconnected');
       
       // Exponential backoff reconnection
@@ -221,6 +246,7 @@ export function connectWebSocket(slug: string) {
         
         useStore.getState().setConnectionStatus('connecting');
         reconnectTimer = setTimeout(() => {
+          if (!shouldReconnect || activeConnectionId !== connectionId) return;
           connect();
           // Also re-fetch full state
           fetchBin(slug).then(({ requests }) => {
@@ -230,8 +256,9 @@ export function connectWebSocket(slug: string) {
       }
     };
 
-    ws.onerror = (err) => {
-      console.error('WS error:', err);
+    ws.onerror = () => {
+      if (activeConnectionId !== connectionId) return;
+      useStore.getState().setConnectionStatus('disconnected');
     };
   }
 
@@ -239,6 +266,9 @@ export function connectWebSocket(slug: string) {
 }
 
 export function disconnectWebSocket() {
+  shouldReconnect = false;
+  connectionId++;
+
   if (reconnectTimer) {
     clearTimeout(reconnectTimer);
     reconnectTimer = null;

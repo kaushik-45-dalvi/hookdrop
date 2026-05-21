@@ -3,12 +3,12 @@ import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "HookDrop — Instant Webhook Inspector",
+  title: "HookDropp — Instant Webhook Inspector",
   description: "Free, no-login webhook inspection tool. Get a temporary URL, capture webhooks in real-time, inspect headers, body, and more. No account required.",
   keywords: ["webhook", "inspector", "debug", "API", "testing", "developer tools", "webhook catcher", "request bin"],
   authors: [{ name: "Kaushik" }],
   openGraph: {
-    title: "HookDrop — Instant Webhook Inspector",
+    title: "HookDropp — Instant Webhook Inspector",
     description: "Free, no-login webhook inspection tool. Capture and inspect webhooks in real-time.",
     type: "website",
   },

@@ -7,13 +7,25 @@ import { setupWebSocket } from './websocket';
 const app = express();
 const PORT = process.env.PORT || 3001;
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
+const allowedOrigins = new Set([
+  FRONTEND_URL,
+  'http://localhost:3000',
+  'https://hookdropp.vercel.app',
+  'https://hookdrop-iota.vercel.app',
+]);
 
 // Trust proxy (for proper IP detection behind Nginx/load balancers)
 app.set('trust proxy', 1);
 
 // CORS for API routes — restricted to frontend origin
 app.use('/api', cors({
-  origin: FRONTEND_URL,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.has(origin)) {
+      callback(null, true);
+      return;
+    }
+    callback(new Error(`Origin not allowed by CORS: ${origin}`));
+  },
   credentials: true,
 }));
 
@@ -62,7 +74,7 @@ server.listen(PORT, () => {
   console.log(`
   ╔═══════════════════════════════════════╗
   ║                                       ║
-  ║   🪝  HookDrop Server                 ║
+  ║   🪝  HookDropp Server                ║
   ║                                       ║
   ║   API:  http://localhost:${PORT}        ║
   ║   WS:   ws://localhost:${PORT}/ws/:slug ║

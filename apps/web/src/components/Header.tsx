@@ -31,7 +31,7 @@ export default function Header({ onNewBin }: HeaderProps) {
           <a href="/" className={styles.logo}>
             <span className={styles.logoNum}>00 //</span>
             <span className={styles.logoText}>
-              HOOK<span className={styles.logoAccent}>DROP</span>
+              HOOK<span className={styles.logoAccent}>DROPP</span>
             </span>
           </a>
         </div>
@@ -74,7 +74,7 @@ export default function Header({ onNewBin }: HeaderProps) {
             
             <div className={styles.modalBody}>
               <p className={styles.modalDesc}>
-                HookDrop is <strong>zero-friction</strong>. You get a fully functional webhook session instantly without signing up. 
+                HookDropp is <strong>zero-friction</strong>. You get a fully functional webhook session instantly without signing up. 
               </p>
               
               <div className={styles.featuresList}>
