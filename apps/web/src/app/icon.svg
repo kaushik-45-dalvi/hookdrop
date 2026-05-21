@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" rx="8" fill="#000000"/>
+  <!-- Sleek neon cyan hook -->
+  <path d="M16 8V18C16 20.2091 14.2091 22 12 22C9.79086 22 8 20.2091 8 18C8 15.7909 9.79086 14 12 14" stroke="#00e5ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Minimalist white top anchor point -->
+  <circle cx="16" cy="8" r="2" fill="#ffffff"/>
+</svg>

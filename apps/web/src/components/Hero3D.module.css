@@ -1,0 +1,151 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--bg-primary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  width: 100%;
+  border-bottom: var(--grid-line);
+  min-height: 550px;
+}
+
+.leftCol {
+  padding: 80px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: var(--grid-line);
+  background: var(--bg-primary);
+}
+
+.metaLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: 32px;
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 520px;
+}
+
+.rightCol {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #fdfdfd;
+}
+
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Stats Section similar to Moro Framer */
+.statsSection {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+  border-bottom: var(--grid-line);
+  background: var(--bg-primary);
+}
+
+.statBox {
+  padding: 48px 32px;
+  border-right: var(--grid-line);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--bg-primary);
+}
+
+.statBox:last-child {
+  border-right: none;
+}
+
+.statNum {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+.statLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.statDesc {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .leftCol {
+    border-right: none;
+    border-bottom: var(--grid-line);
+    padding: 60px 24px;
+  }
+  .rightCol {
+    height: 400px;
+  }
+  .statsSection {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .statBox:nth-child(2) {
+    border-right: none;
+  }
+  .statBox:nth-child(n+3) {
+    border-top: var(--grid-line);
+  }
+}
+
+@media (max-width: 640px) {
+  .title {
+    font-size: 44px;
+  }
+  .statsSection {
+    grid-template-columns: 1fr;
+  }
+  .statBox {
+    border-right: none !important;
+    border-top: var(--grid-line) !important;
+    padding: 32px 24px;
+  }
+  .statBox:first-child {
+    border-top: none !important;
+  }
+}

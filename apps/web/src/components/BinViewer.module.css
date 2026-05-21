@@ -1,0 +1,157 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  background: var(--bg-primary);
+}
+
+.actionBar {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  border-bottom: var(--grid-line);
+  background: var(--bg-primary);
+}
+
+.actionBarLeft {
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-right: var(--grid-line);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.num {
+  color: var(--text-tertiary);
+  margin-right: 8px;
+}
+
+.binSlug {
+  letter-spacing: 0.05em;
+}
+
+.slugValue {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.actionBarRight {
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.clearBtn,
+.deleteBtn {
+  background: transparent;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.clearBtn {
+  color: var(--text-secondary);
+}
+
+.clearBtn:hover {
+  color: var(--status-warning);
+}
+
+.deleteBtn {
+  color: var(--text-tertiary);
+}
+
+.deleteBtn:hover {
+  color: var(--status-error);
+}
+
+.main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.splitView {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  flex: 1;
+  min-height: 0;
+}
+
+.sidebar {
+  height: 100%;
+  border-right: var(--grid-line);
+  overflow-y: auto;
+  background: var(--bg-primary);
+}
+
+.detail {
+  height: 100%;
+  overflow-y: auto;
+  background: var(--bg-primary);
+}
+
+.mobileOverlay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .actionBar {
+    grid-template-columns: 1fr;
+    height: auto;
+    padding: 12px;
+  }
+  .actionBarLeft {
+    border-right: none;
+    padding: 0 0 8px 0;
+  }
+  .actionBarRight {
+    padding: 0;
+    justify-content: flex-start;
+  }
+  .splitView {
+    grid-template-columns: 1fr;
+    position: relative;
+  }
+  .sidebar {
+    border-right: none;
+  }
+  .detail {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .detailOpen {
+    transform: translateY(0);
+  }
+  .mobileOverlay {
+    display: block;
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 30;
+  }
+}

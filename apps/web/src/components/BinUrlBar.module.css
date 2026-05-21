@@ -1,0 +1,120 @@
+.bar {
+  display: grid;
+  grid-template-columns: 200px 1fr auto 200px;
+  align-items: center;
+  width: 100%;
+  height: 56px;
+  border-bottom: var(--grid-line);
+  background: var(--bg-primary);
+}
+
+.labelCol {
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-right: var(--grid-line);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+}
+
+.num {
+  color: var(--text-tertiary);
+  margin-right: 8px;
+}
+
+.urlCol {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  border-right: var(--grid-line);
+}
+
+.input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--accent);
+  outline: none;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+}
+
+.copyBtn {
+  height: 100%;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--text-primary);
+  border: none;
+  border-right: var(--grid-line);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copyBtn:hover {
+  background: var(--bg-card-hover);
+  color: var(--accent);
+}
+
+.copied {
+  background: var(--accent) !important;
+  color: #000 !important;
+}
+
+.timerCol {
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: var(--font-mono);
+}
+
+.timerNum {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.timerLabel {
+  font-size: 9px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 1024px) {
+  .bar {
+    grid-template-columns: 1fr auto;
+    height: auto;
+  }
+  .labelCol {
+    display: none;
+  }
+  .urlCol {
+    border-right: none;
+    border-bottom: var(--grid-line);
+    padding: 16px;
+    grid-column: 1 / -1;
+  }
+  .copyBtn {
+    border-right: var(--grid-line);
+    padding: 16px;
+  }
+  .timerCol {
+    padding: 16px;
+  }
+}
