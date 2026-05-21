@@ -90,9 +90,8 @@ export default function Home() {
     toast('Session terminated', { icon: '🗑️' });
   }, [bin, reset]);
 
-  // Auto-create bin on page load
+  // Disconnect WebSocket on unmount
   useEffect(() => {
-    initBin();
     return () => {
       disconnectWebSocket();
     };
