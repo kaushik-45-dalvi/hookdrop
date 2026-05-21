@@ -58,6 +58,11 @@ app.use((err: any, _req: express.Request, res: express.Response, next: express.N
 app.use('/api', apiRouter);
 app.use('/h', webhookRouter);
 
+// Redirect root to frontend
+app.get('/', (_req, res) => {
+  res.redirect(FRONTEND_URL);
+});
+
 // Health check
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', uptime: process.uptime() });
