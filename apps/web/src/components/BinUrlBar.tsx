@@ -8,8 +8,13 @@ export default function BinUrlBar() {
   const { bin } = useStore();
   const [copied, setCopied] = useState(false);
   const [timeLeft, setTimeLeft] = useState<string>('');
+  const [origin, setOrigin] = useState('');
 
-  const webhookUrl = bin ? `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/h/${bin.slug}` : '';
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
+
+  const webhookUrl = bin ? `${origin}/h/${bin.slug}` : '';
 
   useEffect(() => {
     if (!bin) return;
