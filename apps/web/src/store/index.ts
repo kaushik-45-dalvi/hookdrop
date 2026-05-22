@@ -70,7 +70,9 @@ interface HookDropState {
   reset: () => void;
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const API_URL = typeof window !== 'undefined'
+  ? (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/$/, '')
+  : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001').replace(/\/$/, '');
 
 export const useStore = create<HookDropState>((set, get) => ({
   // Initial state
@@ -165,12 +167,34 @@ function getWebSocketUrl(slug: string) {
     return `${configuredWsUrl.replace(/\/$/, '')}/ws/${slug}`;
   }
 
-  const apiUrl = new URL(API_URL);
-  apiUrl.protocol = apiUrl.protocol === 'https:' ? 'wss:' : 'ws:';
-  apiUrl.pathname = `/ws/${slug}`;
-  apiUrl.search = '';
-  apiUrl.hash = '';
-  return apiUrl.toString();
+  const configuredApiUrl = process.env.NEXT_PUBLIC_API_URL;
+  if (configuredApiUrl) {
+    try {
+      const url = new URL(configuredApiUrl);
+      url.protocol = url.protocol === 'https:' ? 'wss:' : 'ws:';
+      url.pathname = `/ws/${slug}`;
+      url.search = '';
+      url.hash = '';
+      return url.toString();
+    } catch (e) {
+      console.error('Failed to parse NEXT_PUBLIC_API_URL for WebSocket:', e);
+    }
+  }
+
+  if (typeof window !== 'undefined') {
+    try {
+      const url = new URL(window.location.origin);
+      url.protocol = url.protocol === 'https:' ? 'wss:' : 'ws:';
+      url.pathname = `/ws/${slug}`;
+      url.search = '';
+      url.hash = '';
+      return url.toString();
+    } catch (e) {
+      console.error('Failed to parse window.location.origin for WebSocket:', e);
+    }
+  }
+
+  return `ws://localhost:3001/ws/${slug}`;
 }
 
 export function connectWebSocket(slug: string) {
