@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /$
+Disallow: /bin/
+Disallow: /h/
+Disallow: /api/
+
+Sitemap: https://hookdrop-server.vercel.app/sitemap.xml
