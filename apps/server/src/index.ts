@@ -20,7 +20,12 @@ app.set('trust proxy', 1);
 // CORS for API routes — restricted to frontend origin
 app.use('/api', cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.has(origin)) {
+    if (
+      !origin ||
+      allowedOrigins.has(origin) ||
+      origin.endsWith('.vercel.app') ||
+      origin.startsWith('http://localhost:')
+    ) {
       callback(null, true);
       return;
     }

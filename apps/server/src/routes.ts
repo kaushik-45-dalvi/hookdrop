@@ -10,7 +10,7 @@ import {
   deleteRequest,
   hashIP,
 } from './store';
-import type { CapturedRequest } from '@hookdrop/types';
+import type { CapturedRequest } from './types';
 
 export const apiRouter = Router();
 export const webhookRouter = Router();

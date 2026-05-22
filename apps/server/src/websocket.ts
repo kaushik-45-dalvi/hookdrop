@@ -1,7 +1,7 @@
 import { WebSocketServer, WebSocket } from 'ws';
 import { Server } from 'http';
 import { subscribe, getBin } from './store';
-import type { CapturedRequest } from '@hookdrop/types';
+import type { CapturedRequest } from './types';
 
 interface WSClient {
   ws: WebSocket;

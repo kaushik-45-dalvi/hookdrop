@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import crypto from 'crypto';
-import type { Bin, CapturedRequest } from '@hookdrop/types';
+import type { Bin, CapturedRequest } from './types';
 
 const BIN_TTL_SECONDS = 60 * 60; // 1 hour
 const MAX_REQUESTS_PER_BIN = 100;
