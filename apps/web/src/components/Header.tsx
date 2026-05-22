@@ -31,7 +31,7 @@ export default function Header({ onNewBin }: HeaderProps) {
           <a href="/" className={styles.logo}>
             <span className={styles.logoNum}>00 //</span>
             <span className={styles.logoText}>
-              HOOK<span className={styles.logoAccent}>DROPP</span>
+              HOOK<span className={styles.logoAccent}>DROP</span>
             </span>
           </a>
         </div>
