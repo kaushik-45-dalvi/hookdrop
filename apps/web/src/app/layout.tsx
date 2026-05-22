@@ -5,7 +5,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "HookDrop — Instant Webhook Inspector & Request Bin",
   description: "Free, no-login webhook debugger and inspector. Get a temporary URL, capture incoming webhook payloads in real-time, and analyze headers and request bodies.",
-  keywords: ["hookdrop", "hookdropp", "webhook bin", "request bin", "webhook inspector", "webhook debugger", "webhook catcher", "API testing", "realtime webhook", "developer tools"],
+  keywords: ["hookdrop", "webhook bin", "request bin", "webhook inspector", "webhook debugger", "webhook catcher", "API testing", "realtime webhook", "developer tools"],
   authors: [{ name: "Kaushik" }],
   robots: {
     index: true,

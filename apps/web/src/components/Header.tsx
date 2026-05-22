@@ -74,7 +74,7 @@ export default function Header({ onNewBin }: HeaderProps) {
             
             <div className={styles.modalBody}>
               <p className={styles.modalDesc}>
-                HookDropp is <strong>zero-friction</strong>. You get a fully functional webhook session instantly without signing up. 
+                HookDrop is <strong>zero-friction</strong>. You get a fully functional webhook session instantly without signing up. 
               </p>
               
               <div className={styles.featuresList}>

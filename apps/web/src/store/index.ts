@@ -232,7 +232,7 @@ export function connectWebSocket(slug: string) {
             useStore.getState().addRequest(data.data);
             // Notify if tab is not focused
             if (document.hidden && Notification.permission === 'granted') {
-              new Notification('HookDropp', {
+              new Notification('HookDrop', {
                 body: `New ${data.data.method} request received`,
                 icon: '/favicon.ico',
               });
